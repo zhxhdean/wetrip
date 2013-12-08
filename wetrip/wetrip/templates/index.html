@@ -2,11 +2,26 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link type="text/css" rel="stylesheet" href="/static/css/base.css"/>
+<script type="text/javascript"  src="/static/javascript/jquery-1.4.4.min.js"></script>
+<script type="text/javascript"  src="/static/javascript/xheditor/xheditor-1.2.1.min.js"></script>
+<script type="text/javascript" src="/static/javascript/xheditor/xheditor_lang/zh-cn.js"></script>
+<script type="text/javascript">
+$(function(){
+$('#elm1').xheditor({width:"800px",height:"300px",upImgUrl:"upload",upImgExt:"jpg,jpeg,gif,png"});
+})
+</script>
 <title>wetrip</title>
 </head>
-<body><center><h1>Welcome to wetrip</h1>
-<h2> on ubuntu 12.04</h2>
-<h3>{{time}}</h3>
-</center>
+<body>
+	<center>
+		<h1>Welcome to wetrip</h1>
+		<h2>on ubuntu 12.04</h2>
+		<h3>{{time}}</h3>
+		<a href="#">it's link</a>
+	</center>
+	<hr/>
+	
+	<textarea id="elm1"></textarea>
 </body>
 </html>

@@ -1,0 +1,4 @@
+@CHARSET "UTF-8";
+body{font-size:12px;}
+ul li{display:none;list-style-type:none;margin:0px;padding:0px;}
+a{font-size:20px}a:hover{color:#f00;}
