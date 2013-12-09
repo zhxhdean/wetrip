@@ -33,24 +33,23 @@ def save_image(file_data,file_name,html5):
                                              ensure_ascii=False))
     new_file_name = '/'+ str(int(time.time()))+ str(random.randint(0,1000)) + suffix
     try:
-        dir_path = create_dir()
+        today = dt.datetime.today()
+        dir_path = '/%s/%d/%d/%d' % (settings.MEDIA_PICTURES_DIR,today.year,today.month,today.day)
+        create_dir(dir_path)
         with open(settings.MEDIA_ROOT + dir_path + new_file_name ,'wb') as f:
             if html5:
                 f.write(file_data)
             else:
                 for d in file_data.chunks():
                     f.write(d)
-        return HttpResponse(simplejson.dumps({'err':'','msg':''.join([settings.MEDIA_DIR ,dir_path , new_file_name]) }))
+        return HttpResponse(simplejson.dumps({'err':'','msg':''.join([settings.MEDIA_PICTURES_DIR ,dir_path , new_file_name]) }))
     except IOError, e:
         return HttpResponse(simplejson.dumps({'err':e.strerror,'msg':''},ensure_ascii=False))
 
 #创建目录
-def create_dir():
-    today = dt.datetime.today()
-    dir_path = '/travel/%d/%d/%d' % (today.year,today.month,today.day)
+def create_dir(dir_path):
     if not os.path.exists(settings.MEDIA_ROOT + dir_path):
         os.makedirs(settings.MEDIA_ROOT + dir_path)
-    return dir_path
 
 #验证上传文件后缀名
 def check_suffix(suffix):

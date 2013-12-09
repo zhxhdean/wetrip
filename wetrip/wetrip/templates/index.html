@@ -13,11 +13,12 @@
 	<center>
 		<h1>Welcome to wetrip</h1>
 		<h2>on ubuntu 12.04</h2>
-		<h3>{{time}}</h3>
 		<a href="#">it's link</a>
 	</center>
-	<hr/>
-	
-	<textarea id="elm1"></textarea>
+	<hr/>{{msg}}
+	<form method="post" action="/home/add_info/">{%csrf_token%}
+	<input type="submit" value="提交"/>
+	<textarea id="elm1" name="tt_notes"></textarea>
+	</form>
 </body>
 </html>

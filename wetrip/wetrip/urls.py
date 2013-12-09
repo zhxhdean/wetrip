@@ -6,6 +6,7 @@ from django.conf import settings
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'wetrip.views.home.index', name='home'),
+    url(r'^home/add_info/$','wetrip.views.home.add_info'),
     url(r'^upload$','wetrip.views.upload.upload_image'),
     url(r'^pictures/(?P<path>.*)$','django.views.static.serve',  
         {'document_root': settings.MEDIA_ROOT}),
