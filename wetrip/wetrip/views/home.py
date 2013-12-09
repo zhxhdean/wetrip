@@ -3,6 +3,7 @@ import datetime as dt,time,random
 from django.shortcuts import render,redirect
 from django.conf import settings
 from wetrip.views import upload
+
 def index(request):
     return render(request,'index.html')
 
