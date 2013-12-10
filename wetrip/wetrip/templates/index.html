@@ -12,7 +12,10 @@
 <body>
 	<center>
 		<h1>Welcome to wetrip</h1>
-		<a href="#">it's link</a>
+		<a href="/">Reload</a><br/>
+		{%for f in file_list %}
+		<a href="?l={{f}}" target="_blank">{{f}}</a><br/>
+		{%endfor%}
 	</center>
 	<hr/>{{msg}}<br/>
 	<a href="?l={{link}}" target="_blank">{{link}}</a>

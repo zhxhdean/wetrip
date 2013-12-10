@@ -58,6 +58,7 @@ MEDIA_PICTURES_DIR = 'pictures'
 
 MEDIA_NOTES_DIR = 'notes'
 
+WEB_ROOT = os.path.dirname(__file__)
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.

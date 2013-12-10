@@ -1,5 +1,5 @@
 #coding=utf8
-import datetime as dt,time,random
+import datetime as dt,time,random,pickle,os
 from django.shortcuts import render
 from django.conf import settings
 from wetrip.views import upload
@@ -14,7 +14,7 @@ def index(request):
             today = dt.datetime.today()
             dir_path = '/%s/%d/%d/%d' % (settings.MEDIA_NOTES_DIR,today.year,today.month,today.day)
             upload.create_dir(dir_path)
-            file_name =  str(int(time.time())) + str(random.randint(0,1000)) + '.t' 
+            file_name =  str(int(time.time())) + str(random.randint(0,1000))
             return write_file(request,note,dir_path + '/' + file_name,'wb')
         else:
             return write_file(request,note,link,'wb')
@@ -28,13 +28,38 @@ def index(request):
             except IOError, e:
                 return render(request,'index.html',{'msg':e.strerror})
         else:
-            return render(request,'index.html')
+            file_list = load_file_list()
+            return render(request,'index.html',{'file_list':file_list})
 
 
 def write_file(request,note,file_name,mode):
     try:
         with open(settings.MEDIA_ROOT + file_name,mode) as f:
             f.write(note.encode('utf8'))
+        save_file_list(file_name)
         return render(request,'index.html',{'msg':'success','link':file_name})
     except IOError ,e:
         return render(request,'index.html',{'msg':e.strerror})
+    
+def save_file_list(file_name):
+    file_list = 'file_list.xml'
+    ls = []
+    if not os.path.exists(settings.WEB_ROOT +'/'+ file_list):
+        with open(settings.WEB_ROOT +'/'+ file_list,"wb") as f:
+            pickle.dump([file_name], f, True)
+    else:
+        ls = load_file_list()
+        if unicode(file_name) not in ls:
+            ls.append(unicode(file_name))
+        with open(settings.WEB_ROOT +'/'+ file_list,"wb") as f:
+            pickle.dump(ls, f, True)
+ 
+def load_file_list():
+    file_list = 'file_list.xml'
+    try:
+        with open(settings.WEB_ROOT +'/'+ file_list,"rb") as f:
+            return pickle.load(f)
+    except IOError:
+        return []
+    except:
+        return []
