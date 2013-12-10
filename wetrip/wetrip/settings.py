@@ -20,7 +20,7 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default.
     }
 }
-
+APPEND_SLASH=False
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = []
@@ -51,6 +51,8 @@ USE_TZ = True
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
 MEDIA_ROOT = os.path.join(os.path.dirname(__file__),'travel').replace('\\','/')
+
+MEDIA_ROOT_URL = 'travel'
 
 MEDIA_PICTURES_DIR = 'pictures'
 

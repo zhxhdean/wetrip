@@ -5,12 +5,11 @@ from django.conf import settings
 # admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', 'wetrip.views.home.index', name='home'),
-    url(r'^home/add_info/$','wetrip.views.home.add_info'),
+    url(r'^$', 'wetrip.views.home.index', name='home'),    
     url(r'^upload$','wetrip.views.upload.upload_image'),
     url(r'^static/(?P<path>.*)$','django.views.static.serve',  
         {'document_root': settings.STATIC_ROOT}),
-    url(r'^pictures/(?P<path>.*)$','django.views.static.serve',  
+    url(r'^travel/(?P<path>.*)$','django.views.static.serve',  
         {'document_root': settings.MEDIA_ROOT}),
     # url(r'^wetrip/', include('wetrip.foo.urls')),
 

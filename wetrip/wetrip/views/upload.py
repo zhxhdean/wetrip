@@ -42,7 +42,7 @@ def save_image(file_data,file_name,html5):
             else:
                 for d in file_data.chunks():
                     f.write(d)
-        return HttpResponse(simplejson.dumps({'err':'','msg':''.join([settings.MEDIA_PICTURES_DIR ,dir_path , new_file_name]) }))
+        return HttpResponse(simplejson.dumps({'err':'','msg':''.join([settings.MEDIA_ROOT_URL ,dir_path , new_file_name]) }))
     except IOError, e:
         return HttpResponse(simplejson.dumps({'err':e.strerror,'msg':''},ensure_ascii=False))
 

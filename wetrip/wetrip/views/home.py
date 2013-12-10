@@ -1,26 +1,40 @@
 #coding=utf8
 import datetime as dt,time,random
-from django.shortcuts import render,redirect
+from django.shortcuts import render
 from django.conf import settings
 from wetrip.views import upload
 
-def index(request):
-    return render(request,'index.html')
-
-def add_info(request):
+def index(request):    
     if request.method == 'POST':
-        today = dt.datetime.today()
-        dir_path = '/%s/%d/%d/%d' % (settings.MEDIA_NOTES_DIR,today.year,today.month,today.day)
-        upload.create_dir(dir_path)
-        file_name =  str(int(time.time())) + str(random.randint(0,1000))
+        link = request.GET.get('l')
         note = request.POST['tt_notes']
         if not note:
-            return render(request,'index.html',{'msg':'error'})
-        try:
-            with open(settings.MEDIA_ROOT + dir_path + '/' + file_name,'w') as f:
-                f.write(note)
-            return render(request,'index.html',{'msg':'success'})
-        except IOError ,e:            
-            return render(request,'index.html',{'msg':e.strerror})
+                return render(request,'index.html',{'msg':'error'})
+        if not link:
+            today = dt.datetime.today()
+            dir_path = '/%s/%d/%d/%d' % (settings.MEDIA_NOTES_DIR,today.year,today.month,today.day)
+            upload.create_dir(dir_path)
+            file_name =  str(int(time.time())) + str(random.randint(0,1000)) + '.t' 
+            return write_file(request,note,dir_path + '/' + file_name,'wb')
+        else:
+            return write_file(request,note,link,'wb')
     else:
-        return redirect('/')
+        link = request.GET.get('l')
+        if link:
+            try:
+                with open(settings.MEDIA_ROOT + link ,'rb') as f:
+                    notes = f.read().decode('utf8')
+                    return render(request,'index.html',{'notes':notes,'link':link})
+            except IOError, e:
+                return render(request,'index.html',{'msg':e.strerror})
+        else:
+            return render(request,'index.html')
+
+
+def write_file(request,note,file_name,mode):
+    try:
+        with open(settings.MEDIA_ROOT + file_name,mode) as f:
+            f.write(note.encode('utf8'))
+        return render(request,'index.html',{'msg':'success','link':file_name})
+    except IOError ,e:
+        return render(request,'index.html',{'msg':e.strerror})

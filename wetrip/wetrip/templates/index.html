@@ -14,10 +14,12 @@
 		<h1>Welcome to wetrip</h1>
 		<a href="#">it's link</a>
 	</center>
-	<hr/>{{msg}}
-	<form method="post" action="/home/add_info/">{%csrf_token%}
-	<input type="submit" value="提交"/>
-	<textarea id="elm1" name="tt_notes"></textarea>
+	<hr/>{{msg}}<br/>
+	<a href="?l={{link}}" target="_blank">{{link}}</a>
+	<br/>
+	<form method="post" action="/?l={{link}}">{%csrf_token%}
+	<input type="submit" value="提交"/><br/>
+	<textarea id="elm1" name="tt_notes">{{notes}}</textarea>
 	</form>
 </body>
 </html>
