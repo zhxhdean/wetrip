@@ -5,7 +5,8 @@ from django.conf import settings
 # admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', 'wetrip.views.home.index', name='home'),    
+    url(r'^$', 'wetrip.views.home.index', name='home'),
+    url(r'^delete/$', 'wetrip.views.home.delete'),        
     url(r'^upload$','wetrip.views.upload.upload_image'),
     url(r'^static/(?P<path>.*)$','django.views.static.serve',  
         {'document_root': settings.STATIC_ROOT}),

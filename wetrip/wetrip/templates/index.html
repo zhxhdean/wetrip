@@ -4,19 +4,29 @@
 <meta charset="UTF-8">
 <link type="text/css" rel="stylesheet" href="/static/css/base.css"/>
 <script type="text/javascript"  src="/static/javascript/jquery-1.4.4.min.js"></script>
-<script type="text/javascript"  src="/static/javascript/home.js"></script>
+<script type="text/javascript"  src="/static/javascript/home.js" charset="gb2312"></script>
 <script type="text/javascript"  src="/static/javascript/xheditor/xheditor-1.2.1.min.js"></script>
 <script type="text/javascript" src="/static/javascript/xheditor/xheditor_lang/zh-cn.js"></script>
 <title>wetrip</title>
 </head>
 <body>
-	<center>
+	<div>
 		<h1>Welcome to wetrip</h1>
 		<a href="/">Reload</a><br/>
+		<form method="post" action="/delete/">
+		{%csrf_token%}
+		{% if file_list%}
+		<input type="checkbox" name="ckb_all"/>全选 <input type="submit" value="删除" name="sbt_delete"/>  <br/>
+		<a href="{%ifequal page_index 1%}#{%else%}?p={{forward}}{%endifequal%}">上一页</a> 
+		{{page_index}}/{{total_page}}
+		<a href="{%ifequal page_index total_page%}#{%else%}?p={{backward}}{%endifequal%}">下一页</a>
+		<br/>
+		{%endif%}
 		{%for f in file_list %}
-		<a href="?l={{f}}" target="_blank">{{f}}</a><br/>
+		<input type="checkbox" name="ckb_f" value="{{f}}"><a href="?l={{f}}" target="_blank">{{f}}</a><br/>		
 		{%endfor%}
-	</center>
+		</form>
+	</div>
 	<hr/>{{msg}}<br/>
 	<a href="?l={{link}}" target="_blank">{{link}}</a>
 	<br/>

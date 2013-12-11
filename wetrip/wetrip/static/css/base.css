@@ -1,4 +1,6 @@
 @CHARSET "UTF-8";
-body{font-size:12px;}
+body{font-size:16px;}
 ul li{display:none;list-style-type:none;margin:0px;padding:0px;}
-a{font-size:20px}a:hover{color:#f00;}
+a{font-size:20px;color:#000}a:hover{color:#f00;}
+.selected {color:#f99}
+div{text-align:center;}
