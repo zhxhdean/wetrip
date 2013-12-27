@@ -1,4 +1,4 @@
-# coding=utf8
+# coding=utf-8
 import datetime as dt, time, random, pickle, os
 from django.shortcuts import render, redirect
 from django.conf import settings
@@ -6,9 +6,18 @@ from wetrip.views import upload
 
 FILE_LIST = 'file_list'
 PAGE_SIZE = 3
-def index(request):
+
+
+def authenticate(request):
+    if request.user.is_authenticated():
+        context = {'login_area':u'欢迎你:%s, <a href="/accounts/logout/">注销</a>'% request.user.username}
+    else:
+        context = {'login_area':u'<a href="/accounts/login/">登录</a>'}
+    return context
+
+def index(request):        
     if request.method == 'POST':
-        link = request.GET.get('l')
+        link = request.POST['hd_link']
         note = request.POST['tt_notes']
         if not note:
                 return render(request, 'index.html', {'msg':'error'})
@@ -21,7 +30,7 @@ def index(request):
         else:
             return write_file(request, note, link, 'wb')
     else:
-        link = request.GET.get('l')
+        link = request.GET.get('l','')#第2个参数为缺省默认值
         if link:
             try:
                 with open(settings.MEDIA_ROOT + link , 'rb') as f:
@@ -31,9 +40,9 @@ def index(request):
                 return render(request, 'index.html', {'msg':e.strerror})
         else:
             page_index = 1
-            if request.GET.get('p'):
+            if request.GET.get('p','1'):#第2个参数为缺省默认值
                 try:
-                    page_index = int(request.GET.get('p'))
+                    page_index = int(request.GET.get('p','1'))
                 except ValueError:
                     page_index = 1
             total_page = (len(load_file_list()) + PAGE_SIZE - 1) / PAGE_SIZE

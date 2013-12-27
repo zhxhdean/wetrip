@@ -1,3 +1,4 @@
 eclipse.preferences.version=1
-encoding//wetrip/views/home.py=utf8
+encoding//wetrip/urls.py=utf8
+encoding//wetrip/views/home.py=utf-8
 encoding//wetrip/views/upload.py=utf8

@@ -11,6 +11,7 @@
 </head>
 <body>
 	<div>
+	 {%autoescape off%}{{login_area}}{%endautoescape%}
 		<h1>Welcome to wetrip!<br/>
 		ubuntu,nginx,python,django</h1>
 		<a href="/">Reload</a><br/>
@@ -24,14 +25,15 @@
 		<br/>
 		{%endif%}
 		{%for f in file_list %}
-		<input type="checkbox" name="ckb_f" value="{{f}}"><a href="?l={{f}}" target="_blank">{{f}}</a><br/>		
+		<input type="checkbox" name="ckb_f" value="{{f}}">{{forloop.counter}}:<a href="?l={{f}}" target="_blank">{{f}}</a><br/>		
 		{%endfor%}
 		</form>
 	</div>
 	<hr/>{{msg}}<br/>
 	<a href="?l={{link}}" target="_blank">{{link}}</a>
 	<br/>
-	<form method="post" action="/?l={{link}}">{%csrf_token%}
+	<form method="post" action=".">{%csrf_token%}
+	<input type="hidden" value="{{link}}" name="hd_link"/>
 	<input type="submit" value="提交"/><br/>
 	<textarea id="elm1" name="tt_notes">{{notes}}</textarea>
 	</form>

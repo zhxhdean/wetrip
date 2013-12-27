@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>用户登录</title>
+</head>
+<body>
+{% if form.errors %}
+<p class="error">Sorry, that's not a valid username or password</p>
+{% endif %}
+	<form action="." method="post">
+		{%csrf_token%} <label for="username">User name:</label> <input
+			type="text" name="username" value="" id="username"> <label
+			for="password">Password:</label> <input type="password"
+			name="password" value="" id="password"> <input type="submit"
+			value="login" /> <input type="hidden" name="next"
+			value="/" />{#如果用户登录成功，缺省会重定向到 /accounts/profile#}
+	</form>
+</body>
+</html>
