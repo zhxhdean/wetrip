@@ -7,14 +7,6 @@ from wetrip.views import upload
 FILE_LIST = 'file_list'
 PAGE_SIZE = 3
 
-
-def authenticate(request):
-    if request.user.is_authenticated():
-        context = {'login_area':u'欢迎你:%s, <a href="/accounts/logout/">注销</a>'% request.user.username}
-    else:
-        context = {'login_area':u'<a href="/accounts/login/">登录</a>'}
-    return context
-
 def index(request):        
     if request.method == 'POST':
         link = request.POST['hd_link']

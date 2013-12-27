@@ -93,7 +93,7 @@ STATICFILES_FINDERS = (
 TEMPLATE_CONTEXT_PROCESSORS =(
 'django.core.context_processors.request',
 'django.contrib.auth.context_processors.auth',
-'wetrip.views.home.authenticate',
+#'wetrip.views.home.authenticate',
 )
 
 # Make this unique, and don't share it with anybody.

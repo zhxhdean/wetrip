@@ -11,7 +11,7 @@
 </head>
 <body>
 	<div>
-	 {%autoescape off%}{{login_area}}{%endautoescape%}
+	{%if user.is_authenticated%}Welcome,[{{user.username}}] <a href="/accounts/logout/">logout</a>{%else%}<a href="/accounts/login/">Please log in</a>{%endif%}
 		<h1>Welcome to wetrip!<br/>
 		ubuntu,nginx,python,django</h1>
 		<a href="/">Reload</a><br/>
